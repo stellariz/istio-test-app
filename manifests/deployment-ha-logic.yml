@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ha-logic
+  labels:
+    app: ha-logic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ha-logic
+  template:
+    metadata:
+      labels:
+        app: ha-logic
+    spec:
+      containers:
+        - name: ha-logic
+          image: "stellariz/ha-logic:v1"
+          imagePullPolicy: Always
+          ports:
+            - name: http-intern
+              containerPort: 8080
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ha-logic-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http-intern
+      protocol: TCP
+  selector:
+    app: ha-logic

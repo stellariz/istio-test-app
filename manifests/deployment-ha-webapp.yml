@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ha-web-app
+  labels:
+    app: ha-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ha-web-app
+  template:
+    metadata:
+      labels:
+        app: ha-web-app
+    spec:
+      containers:
+        - name: ha-web-app
+          image: "stellariz/ha-webapp:v1"
+          imagePullPolicy: Always
+          env:
+            - name: HA_LOGIC_API_URL
+              value: "http://10.106.24.58"
+          envFrom:
+            - secretRef:
+                name: app-credentials
+          ports:
+            - name: http-intern
+              containerPort: 8080
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ha-web-app-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: http-intern
+      protocol: TCP
+  selector:
+    app: ha-web-app

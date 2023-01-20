@@ -1,0 +1,42 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ha-external-services
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - http-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/hello"
+      route:
+        - destination:
+            host: ha-web-app-service
+            port:
+              number: 8080
+      corsPolicy:
+        allowHeaders:
+          - Authorization
+        allowOrigins:
+          - exact: "http://localhost:3000"
+        allowMethods:
+          - POST
+          - GET
+    - match:
+        - uri:
+            prefix: "/details"
+      route:
+        - destination:
+            host: ha-details-service
+            port:
+              number: 8081
+      corsPolicy:
+        allowHeaders:
+          - Authorization
+        allowOrigins:
+        - exact: "http://localhost:3000"
+        allowMethods:
+          - POST
+          - GET

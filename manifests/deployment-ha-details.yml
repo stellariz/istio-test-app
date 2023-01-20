@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ha-details
+  labels:
+    app: ha-details
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ha-details
+  template:
+    metadata:
+      labels:
+        app: ha-details
+    spec:
+      containers:
+        - name: ha-details
+          image: "stellariz/ha-details:v1"
+          imagePullPolicy: Always
+          ports:
+            - name: http-intern
+              containerPort: 8080
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ha-details-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8081
+      targetPort: http-intern
+      protocol: TCP
+  selector:
+    app: ha-details

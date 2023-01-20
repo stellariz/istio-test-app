@@ -1,0 +1,34 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: auth-policy-ha-details
+spec:
+  selector:
+    matchLabels:
+      app: ha-details
+  jwtRules:
+    - issuer: "https://dev-u5o37olgehpj6ms5.us.auth0.com/"
+      jwksUri: "https://dev-u5o37olgehpj6ms5.us.auth0.com/.well-known/jwks.json"
+      outputPayloadToHeader: x-token
+      fromHeaders:
+        - name: Authorization
+          prefix: "Bearer "
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: jwt-require-ha-details
+spec:
+  selector:
+    matchLabels:
+      app: ha-details
+  action: ALLOW
+  rules:
+  - from:
+    to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/details*"]
+    when:
+    - key: request.auth.claims[permissions]
+      values: ["write:greeting-message"]
