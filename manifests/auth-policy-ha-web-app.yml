@@ -17,12 +17,12 @@ spec:
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: jwt-require-ha-web-app
+  name: webapp-policy
 spec:
+  action: ALLOW
   selector:
     matchLabels:
       app: ha-web-app
-  action: ALLOW
   rules:
     - from:
         - source:

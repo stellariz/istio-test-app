@@ -17,7 +17,7 @@ spec:
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: jwt-require-ha-details
+  name: details-policy
 spec:
   selector:
     matchLabels:
@@ -31,4 +31,4 @@ spec:
         paths: ["/details*"]
     when:
     - key: request.auth.claims[permissions]
-      values: ["write:greeting-message"]
+      values: ["read:details"]
