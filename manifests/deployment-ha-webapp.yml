@@ -1,7 +1,14 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: web-app-sa
+  namespace: istio-demo
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ha-web-app
+  namespace: istio-demo
   labels:
     app: ha-web-app
 spec:
@@ -11,29 +18,28 @@ spec:
       app: ha-web-app
   template:
     metadata:
+      namespace: istio-demo
       labels:
         app: ha-web-app
     spec:
+      serviceAccountName: web-app-sa
       containers:
         - name: ha-web-app
           image: "stellariz/ha-webapp:v1"
           imagePullPolicy: Always
           env:
             - name: HA_LOGIC_API_URL
-              value: "http://10.106.24.58"
-          envFrom:
-            - secretRef:
-                name: app-credentials
+              value: ha-logic-service.istio-demo.svc.cluster.local
           ports:
             - name: http-intern
               containerPort: 8080
               protocol: TCP
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ha-web-app-service
+  namespace: istio-demo
 spec:
   type: NodePort
   ports:

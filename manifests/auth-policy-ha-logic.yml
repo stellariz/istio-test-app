@@ -1,31 +1,35 @@
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
-  name: auth-policy-ha-web-app
+  name: auth-policy-ha-logic
   namespace: istio-demo
 spec:
   selector:
     matchLabels:
-      app: ha-web-app
+      app: ha-logic
   jwtRules:
     - issuer: "https://dev-u5o37olgehpj6ms5.us.auth0.com/"
       jwksUri: "https://dev-u5o37olgehpj6ms5.us.auth0.com/.well-known/jwks.json"
-      outputPayloadToHeader: x-token
       fromHeaders:
         - name: Authorization
           prefix: "Bearer "
+      forwardOriginalToken: true
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: webapp-policy
+  name: logic-policy
   namespace: istio-demo
 spec:
-  action: ALLOW
   selector:
     matchLabels:
-      app: ha-web-app
+      app: ha-logic
+  action: ALLOW
   rules:
     - from:
         - source:
-            requestPrincipals: ["*"]
+            principals: [ "cluster.local/ns/istio-demo/sa/web-app-sa" ]
+      to:
+        - operation:
+            methods: ["GET"]
+            paths: ["/get_message"]

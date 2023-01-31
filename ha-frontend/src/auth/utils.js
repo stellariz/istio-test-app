@@ -7,17 +7,8 @@ const AuthContext = createContext(null)
 
 export const AuthProvider = ({children}) => {
     const authorize =  () => {
-        axios.get(`https://${Config.domain}/authorize`, {
-            params: {
-                response_type: 'code',
-                audience: Config.audience,
-                client_id: Config.clientID,
-                redirect_uri: Config.redirect_uri,
-                scope: 'openid'
-            }
-        }).then(response => {
-            console.log(response.data);
-        }).catch(error => console.error(error));
+        // TODO: rewrite
+        window.location.replace(`https://${Config.domain}/authorize?response_type=code&client_id=${Config.clientID}&audience=${Config.audience}&redirect_uri=${Config.redirect_uri}&scope=openid profile`)
     }
     const signin = (token, f) => {
         var options = {

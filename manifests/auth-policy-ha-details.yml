@@ -2,6 +2,7 @@ apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
   name: auth-policy-ha-details
+  namespace: istio-demo
 spec:
   selector:
     matchLabels:
@@ -18,6 +19,7 @@ apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
   name: details-policy
+  namespace: istio-demo
 spec:
   selector:
     matchLabels:

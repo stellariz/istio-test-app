@@ -1,7 +1,8 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: ha-external-services
+  name: ha-external-service
+  namespace: istio-demo
 spec:
   hosts:
     - "*"

@@ -47,7 +47,7 @@ const NavBar = () => {
                                 </Row>
                             </div>
                             :
-                            <Button variant="success" onClick={() => window.location.replace(`https://${Config.domain}/authorize?response_type=code&client_id=${Config.clientID}&audience=${Config.audience}&redirect_uri=${Config.redirect_uri}&scope=openid`)}>Login</Button>
+                            <Button variant="success" onClick={() => auth.authorize()}>Login</Button>
                         }
                     </Nav>
                 </Navbar.Collapse>

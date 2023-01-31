@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ha-logic
+  namespace: istio-demo
   labels:
     app: ha-logic
 spec:
@@ -11,6 +12,7 @@ spec:
       app: ha-logic
   template:
     metadata:
+      namespace: istio-demo
       labels:
         app: ha-logic
     spec:
@@ -28,6 +30,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ha-logic-service
+  namespace: istio-demo
 spec:
   type: ClusterIP
   ports:
