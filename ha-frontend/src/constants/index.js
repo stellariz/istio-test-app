@@ -6,5 +6,5 @@ export const Config = {
     clientID: 'FWk1YyvGkedGQN95z26pN6ndJ4nDsdjQ',
     domain: 'dev-u5o37olgehpj6ms5.us.auth0.com',
     audience: 'http://istio-demo.io',
-    redirect_uri: 'http://localhost:3000/callback'
+    redirect_uri: 'http://localhost/callback'
 }

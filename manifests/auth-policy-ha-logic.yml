@@ -32,4 +32,4 @@ spec:
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/get_message"]
+            paths: ["/api/get_message"]

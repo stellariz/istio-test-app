@@ -30,7 +30,7 @@ spec:
     to:
     - operation:
         methods: ["GET"]
-        paths: ["/details*"]
+        paths: ["/api/details*"]
     when:
     - key: request.auth.claims[permissions]
       values: ["read:details"]

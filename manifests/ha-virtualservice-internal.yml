@@ -1,0 +1,35 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ha-internal-service
+  namespace: istio-demo
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - http-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/api/hello"
+      route:
+        - destination:
+            host: ha-web-app-service
+            port:
+              number: 8080
+    - match:
+        - uri:
+            prefix: "/api/details"
+      route:
+        - destination:
+            host: ha-details-service
+            port:
+              number: 8081
+    - match:
+        - uri:
+            prefix: "/api/get_message"
+      route:
+        - destination:
+            host: ha-logic-service
+            port:
+              number: 80

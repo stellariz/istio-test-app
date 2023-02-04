@@ -9,7 +9,7 @@ import ru.nsu.ccfit.hawebapp.service.GreetingMessageService;
 
 @Slf4j
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/api/hello")
 @RequiredArgsConstructor
 public class HelloController {
     private final GreetingMessageService greetingMessageService;

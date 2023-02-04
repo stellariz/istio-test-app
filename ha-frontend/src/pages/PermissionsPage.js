@@ -6,7 +6,7 @@ const PermissionsPage = () => {
     const [permissions, setPermissions] = useState([])
     const [errorMessage, setErrorMessage] = useState(null)
     useEffect(() => {
-        axios.get(`${Config.baseURL}/details/permissions`, {
+        axios.get(`${Config.baseURL}/api/details/permissions`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`

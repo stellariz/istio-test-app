@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.nsu.ccfit.hadetails.service.UserDetailsService;
 
 @RestController
-@RequestMapping("/details")
+@RequestMapping("/api/details")
 @RequiredArgsConstructor
 public class HaDetailsController {
     private final UserDetailsService userDetailsService;

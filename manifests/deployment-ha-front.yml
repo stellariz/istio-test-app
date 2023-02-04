@@ -1,41 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ha-details
+  name: ha-front
   namespace: istio-demo
   labels:
-    app: ha-details
+    app: ha-front
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ha-details
+      app: ha-front
   template:
     metadata:
       namespace: istio-demo
       labels:
-        app: ha-details
+        app: ha-front
     spec:
       containers:
-        - name: ha-details
-          image: "stellariz/ha-details:v1"
+        - name: ha-front
+          image: "stellariz/ha-front:v1"
           imagePullPolicy: Always
           ports:
             - name: http-intern
-              containerPort: 8080
+              containerPort: 3000
               protocol: TCP
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ha-details-service
+  name: ha-front-service
   namespace: istio-demo
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
-    - port: 8081
+    - port: 80
       targetPort: http-intern
       protocol: TCP
   selector:
-    app: ha-details
+    app: ha-front

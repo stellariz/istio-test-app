@@ -5,7 +5,7 @@ import axios from "axios";
 const HomePage = () => {
     const [message, setMessage] = useState("")
     useEffect(()=>{
-        axios.get(`${Config.baseURL}/hello/greeting`, {
+        axios.get(`${Config.baseURL}/api/hello/greeting`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`

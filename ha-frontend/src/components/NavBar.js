@@ -1,6 +1,6 @@
 import {Button, Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {ACCESS_TOKEN, Config} from "../constants";
+import {ACCESS_TOKEN} from "../constants";
 import {useAuth} from "../auth/utils";
 import {useLocation, useNavigate} from "react-router-dom";
 
