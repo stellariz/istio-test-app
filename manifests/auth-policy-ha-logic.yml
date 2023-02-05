@@ -1,21 +1,4 @@
 apiVersion: security.istio.io/v1beta1
-kind: RequestAuthentication
-metadata:
-  name: auth-policy-ha-logic
-  namespace: istio-demo
-spec:
-  selector:
-    matchLabels:
-      app: ha-logic
-  jwtRules:
-    - issuer: "https://dev-u5o37olgehpj6ms5.us.auth0.com/"
-      jwksUri: "https://dev-u5o37olgehpj6ms5.us.auth0.com/.well-known/jwks.json"
-      fromHeaders:
-        - name: Authorization
-          prefix: "Bearer "
-      forwardOriginalToken: true
----
-apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
   name: logic-policy

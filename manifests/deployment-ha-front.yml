@@ -20,6 +20,9 @@ spec:
         - name: ha-front
           image: "stellariz/ha-front:v1"
           imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: app-credentials
           ports:
             - name: http-intern
               containerPort: 3000
