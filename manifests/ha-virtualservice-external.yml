@@ -11,9 +11,9 @@ spec:
   http:
     - match:
         - uri:
-            regex: "/?(.*)"
+            prefix: "/"
       route:
         - destination:
             host: ha-front-service
             port:
-              number: 80
+              number: 3000

@@ -8,12 +8,11 @@ spec:
     matchLabels:
       app: ha-web-app
   jwtRules:
-    - issuer: "https://dev-u5o37olgehpj6ms5.us.auth0.com/"
-      jwksUri: "https://dev-u5o37olgehpj6ms5.us.auth0.com/.well-known/jwks.json"
+    - issuer: "http://localhost/realms/istio-demo-app"
+      jwksUri: "http://keycloak-service.istio-demo.svc.cluster.local:8079/realms/istio-demo-app/protocol/openid-connect/certs"
       outputPayloadToHeader: x-token
       fromHeaders:
         - name: Authorization
-          prefix: "Bearer "
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy

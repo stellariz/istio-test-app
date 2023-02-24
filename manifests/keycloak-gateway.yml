@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: keycloak-virtualservice
+  namespace: istio-demo
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - http-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /auth
+        - uri:
+            prefix: /keycloak
+        - uri:
+            prefix: /admin
+        - uri:
+            prefix: /resources
+        - uri:
+            prefix: /realms
+      route:
+        - destination:
+            host: keycloak-service
+            port:
+              number: 8079
